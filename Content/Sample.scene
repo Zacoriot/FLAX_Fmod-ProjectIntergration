@@ -1,0 +1,201 @@
+{
+	"ID": "fc19c9534127a79449af63b04f982400",
+	"TypeName": "FlaxEngine.SceneAsset",
+	"EngineBuild": 6605,
+	"Data": [
+		{
+			"ID": "fc19c9534127a79449af63b04f982400",
+			"TypeName": "FlaxEngine.Scene",
+			"LightmapSettings": {
+				"IndirectLightingIntensity": 1.0,
+				"GlobalObjectsScale": 1.0,
+				"ChartsPadding": 3,
+				"AtlasSize": 1024,
+				"BounceCount": 1,
+				"CompressLightmaps": true,
+				"UseGeometryWithNoMaterials": true,
+				"Quality": 10
+			}
+		},
+		{
+			"ID": "9d0e170d42a0d93a444682abd650a5c2",
+			"TypeName": "FlaxEngine.DirectionalLight",
+			"ParentID": "fc19c9534127a79449af63b04f982400",
+			"Name": "Sun",
+			"Transform": {
+				"Translation": {
+					"X": 40.0,
+					"Y": 160.0,
+					"Z": 0.0
+				},
+				"Orientation": {
+					"X": 0.3826834559440613,
+					"Y": 0.0,
+					"Z": 0.0,
+					"W": 0.9238795042037964
+				}
+			}
+		},
+		{
+			"ID": "2e6310a64566d16de1bab29288468637",
+			"TypeName": "FlaxEngine.Sky",
+			"ParentID": "fc19c9534127a79449af63b04f982400",
+			"Name": "Sky",
+			"Transform": {
+				"Translation": {
+					"X": 40.0,
+					"Y": 150.0,
+					"Z": 0.0
+				}
+			},
+			"Sun": "9d0e170d42a0d93a444682abd650a5c2"
+		},
+		{
+			"ID": "db0c12a742f1daf4ff9aab8cd91cc4e5",
+			"TypeName": "FlaxEngine.SkyLight",
+			"ParentID": "fc19c9534127a79449af63b04f982400",
+			"Name": "SkyLight",
+			"Brightness": 2.5,
+			"CustomTexture": "c54410104ff39427bc11e5bc761d66b0"
+		},
+		{
+			"ID": "f2b2bd2647a5f162e1be779afe67204a",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "fc19c9534127a79449af63b04f982400",
+			"Name": "Floor",
+			"Transform": {
+				"Scale": {
+					"X": 10.0,
+					"Y": 0.5,
+					"Z": 10.0
+				}
+			},
+			"Model": "b43f0f8f4aaba3f3156896a5a22ba493",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "1771b53343d461faacdf2c8581b1fdbb",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "b87b3d0c45b750de660911a840efa9fe",
+			"TypeName": "FlaxEngine.BoxCollider",
+			"ParentID": "f2b2bd2647a5f162e1be779afe67204a",
+			"Name": "BoxCollider"
+		},
+		{
+			"ID": "e2b0583a4dfc3bf5fc768793b88c7a41",
+			"TypeName": "FlaxEngine.Camera",
+			"ParentID": "fc19c9534127a79449af63b04f982400",
+			"Name": "Camera",
+			"Transform": {
+				"Translation": {
+					"X": 0.0,
+					"Y": 150.0,
+					"Z": -300.0
+				}
+			}
+		},
+		{
+			"ID": "54fa75d94134c54301f934b238dfe3ea",
+			"TypeName": "FlaxEngine.AudioListener",
+			"ParentID": "e2b0583a4dfc3bf5fc768793b88c7a41",
+			"Name": "Audio Listener"
+		},
+		{
+			"ID": "1fe1f81740b812e42434269232661525",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "fc19c9534127a79449af63b04f982400",
+			"Name": "FmodInitialiser"
+		},
+		{
+			"ID": "52e9664e4c54f756031ca3a9341b4416",
+			"TypeName": "Game.AudioManagerWrapper",
+			"ParentID": "1fe1f81740b812e42434269232661525",
+			"V": {}
+		},
+		{
+			"ID": "0f10c57e46fd93e1622d52a9134a1aca",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "fc19c9534127a79449af63b04f982400",
+			"Name": "3D Music",
+			"Transform": {
+				"Translation": {
+					"X": 323.58740234375,
+					"Y": 86.42448425292969,
+					"Z": 0.0
+				}
+			}
+		},
+		{
+			"ID": "002a442e48c30d2eaa1a34abb3656e1f",
+			"TypeName": "Game.SoundSource",
+			"ParentID": "0f10c57e46fd93e1622d52a9134a1aca",
+			"V": {
+	"_EventGUID": "{33582312-0194-4988-95e3-4198e99996f0}",
+	"_BankName": "Master.bank",
+	"_PlayOnStart": true
+}
+		},
+		{
+			"ID": "35ccbbae455cc607072deb8b3b1ca3d4",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "0f10c57e46fd93e1622d52a9134a1aca",
+			"Name": "StaticModel",
+			"Model": "e573d5ca49210c5230e55ea7405519c8",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "00000000000000000000000000000000",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		},
+		{
+			"ID": "6fff5cd541846fda298301a2a73f9911",
+			"TypeName": "FlaxEngine.EmptyActor",
+			"ParentID": "fc19c9534127a79449af63b04f982400",
+			"Name": "Listener",
+			"Transform": {
+				"Translation": {
+					"X": -98.27200317382813,
+					"Y": 24.2222900390625,
+					"Z": 0.0
+				}
+			},
+			"StaticFlags": 0
+		},
+		{
+			"ID": "a6c8bfa14b10bdb8fac71fb46c344376",
+			"TypeName": "Game.AudioListener",
+			"ParentID": "6fff5cd541846fda298301a2a73f9911",
+			"V": {}
+		},
+		{
+			"ID": "5394037a46c57916c2d2b1b9f8788c58",
+			"TypeName": "FlaxEngine.StaticModel",
+			"ParentID": "6fff5cd541846fda298301a2a73f9911",
+			"Name": "StaticModel",
+			"StaticFlags": 0,
+			"Model": "3f82e57744f57c28285150b646ad2198",
+			"Buffer": {
+				"Entries": [
+					{
+						"Material": "00000000000000000000000000000000",
+						"ShadowsMode": 3,
+						"Visible": true,
+						"ReceiveDecals": true
+					}
+				]
+			}
+		}
+	]
+}

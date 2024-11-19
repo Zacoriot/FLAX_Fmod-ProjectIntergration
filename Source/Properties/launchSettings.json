@@ -1,0 +1,11 @@
+﻿{
+  "profiles": {
+    "Game": {
+      "commandName": "Executable",
+      "workingDirectory": "D:/Game Dev/Projects/Flax/FmodTest",
+      "executablePath": "D:/Game Dev/Engine/Flax/Flax_1.9/Binaries/Editor/Win64/Development/FlaxEditor.exe",
+      "commandLineArgs": "-project \"D:/Game Dev/Projects/Flax/FmodTest\"",
+      "nativeDebugging": false
+    }
+  }
+}
