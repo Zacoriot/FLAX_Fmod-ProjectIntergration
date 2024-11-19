@@ -1,5 +1,8 @@
 # FmodTest
- This version of my FMOD into Flax intergration is not the most ideal way of achieving the support, as it still runs the OpenAL audio along side it all, however, I may in the future have a tamper with the engine its self and try to intergrate support that way. Feel free to use this project as a template but just a reminder, ***its very basic and not the most ideal implementation!***
+**This implementation is not the best approach and is very hacky!** Please take this project with a grain of salt and it may have some unintended bugs here and there... I wrote it all in 3 days, whilst very confused and scared...***
+OpenAL does still run!
+
+Feel free to use this as a start point to a propper implementation into your project, or contribute to make better implemented.
  -----
  # Basic info
  The way this is build is the primarily be programming in C# and to use the `AudioManagerWrapper.cs` as if it is the main Audio Manager
