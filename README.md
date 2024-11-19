@@ -1,5 +1,5 @@
 # FmodTest
-**This implementation is not the best approach and is very hacky!** Please take this project with a grain of salt and it may have some unintended bugs here and there... I wrote it all in 3 days, whilst very confused and scared...***
+**This implementation is not the best approach and is very hacky!** Please take this project with a grain of salt and it may have some unintended bugs here and there... I wrote it all whilst very confused and scared...***
 OpenAL does still run!
 
 Feel free to use this as a start point to a propper implementation into your project or contribute to this repo and help refine this intergration!
