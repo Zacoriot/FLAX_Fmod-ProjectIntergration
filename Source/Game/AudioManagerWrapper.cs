@@ -8,11 +8,16 @@ namespace Game;
 /// </summary>
 public class AudioManagerWrapper : Script
 {
-    public static AudioManagerWrapper Instance;
-    AudioManager _AudioManager;
+    /////
+    ///// ALL METHODS ARE THE SAME AS FOUND IN AudioManager.cpp/.h
+    /////
+
+    public static AudioManagerWrapper Instance; //Singleton
+    AudioManager _AudioManager; //Cpp scrip
 
     public override void OnAwake()
     {
+        //Create singleton
         if(Instance != null)
         {
             Destroy(Actor);
@@ -21,6 +26,7 @@ public class AudioManagerWrapper : Script
         Instance = this;
 
 
+        //Create new AudioManaget script and initialise
         _AudioManager = new AudioManager();
         _AudioManager.Initialize();
     }

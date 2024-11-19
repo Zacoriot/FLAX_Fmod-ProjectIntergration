@@ -9,7 +9,7 @@ namespace Game;
 public class SoundSource : Script
 {
     AudioManagerWrapper _AudioManager;
-    IntPtr _EventInstance;
+    IntPtr _EventInstance; //The audio event
     [ShowInEditor, Serialize] string _EventGUID;
     [ShowInEditor, Serialize] string _BankName;
     [ShowInEditor, Serialize] bool _PlayOnStart;
@@ -17,19 +17,20 @@ public class SoundSource : Script
 
     public override void OnStart()
     {
+        //Audio Manager referance
         _AudioManager = AudioManagerWrapper.Instance;
 
         string bankPath = BankPaths.Path + _BankName;
 
-        if(!_AudioManager.IsBankLoaded(bankPath))
+        if(!_AudioManager.IsBankLoaded(bankPath)) //Is bank loaded?
         {
-            _AudioManager.LoadBank(bankPath);
+            _AudioManager.LoadBank(bankPath); // Load said bank
             Debug.Log($"{_BankName} has been loaded!");
         }
 
-        CreateEventInstance();
+        CreateEventInstance(); //Create event instance method run
 
-        if(_PlayOnStart)
+        if(_PlayOnStart) // Should play on start?
         {
             Play();
         }
@@ -37,19 +38,19 @@ public class SoundSource : Script
 
     private void CreateEventInstance()
     {
-        if (string.IsNullOrEmpty(_EventGUID))
+        if (string.IsNullOrEmpty(_EventGUID)) //Has GUID been provided
         {
             Debug.LogWarning("Event path is not set");
             return;
         }
-        _EventInstance = _AudioManager.CreateEventInstance(_EventGUID);
+        _EventInstance = _AudioManager.CreateEventInstance(_EventGUID); //Create instance based on GUID
     }
 
     public void Play()
     {
         if (_EventInstance != IntPtr.Zero)
         {
-            _AudioManager.PlayEvent(_EventInstance);
+            _AudioManager.PlayEvent(_EventInstance); //Play
         }
     }
 
@@ -57,7 +58,7 @@ public class SoundSource : Script
     {
         if(_EventInstance != IntPtr.Zero)
         {
-            return _AudioManager.IsEventPlaying(_EventInstance);
+            return _AudioManager.IsEventPlaying(_EventInstance); //Is playing?
         }
 
         return false;
@@ -67,7 +68,7 @@ public class SoundSource : Script
     {
         if (_EventInstance != IntPtr.Zero)
         {
-            _AudioManager.StopEvent(_EventInstance, stopMode);
+            _AudioManager.StopEvent(_EventInstance, stopMode); //Stop
         }
     }
 
@@ -75,7 +76,7 @@ public class SoundSource : Script
     {
         if (_EventInstance != IntPtr.Zero)
         {
-            _AudioManager.SetEventParameter(_EventInstance, parameterName, value);
+            _AudioManager.SetEventParameter(_EventInstance, parameterName, value); //Change perameter values
         }
     }
 
@@ -83,7 +84,7 @@ public class SoundSource : Script
     {
         if (_EventInstance != IntPtr.Zero)
         {
-            return _AudioManager.GetMinDistance(_EventInstance);     
+            return _AudioManager.GetMinDistance(_EventInstance); //Get min distance
         }
 
         return 0;
@@ -93,7 +94,7 @@ public class SoundSource : Script
     {
         if (_EventInstance != IntPtr.Zero)
         {
-            return _AudioManager.GetMaxDistance(_EventInstance);
+            return _AudioManager.GetMaxDistance(_EventInstance); //Get max distance
         }
 
         return 0;
@@ -103,7 +104,7 @@ public class SoundSource : Script
     {
         if (_EventInstance != IntPtr.Zero)
         {
-            _AudioManager.Set3DEventAttributes(_EventInstance, Actor.Position, Vector3.Zero);
+            _AudioManager.Set3DEventAttributes(_EventInstance, Actor.Position, Vector3.Zero); // set 3D properties
         }
     }
 
@@ -111,7 +112,7 @@ public class SoundSource : Script
     {
         if (_EventInstance != IntPtr.Zero)
         {
-            _AudioManager.ReleaseEventInstance(_EventInstance);
+            _AudioManager.ReleaseEventInstance(_EventInstance); //Unload event
             _EventInstance = IntPtr.Zero;
         }
     }

@@ -5,14 +5,14 @@ AudioManager::AudioManager(const SpawnParams& params)
     : Script(params)
 {
     // Enable ticking OnUpdate function
-    _tickUpdate = true;
+    _tickUpdate = false;
 }
 
 void AudioManager::Initialize()
 {
-    FMOD_RESULT result = FMOD::Studio::System::create(&_StudioSystem);
+    FMOD_RESULT result = FMOD::Studio::System::create(&_StudioSystem); //Create FMOD studio system
 
-    if (result != FMOD_OK)
+    if (result != FMOD_OK) //Success?
     {
         DebugLog::LogError(TEXT("Failed to create FMOD Studio system"));
         return;
@@ -20,9 +20,9 @@ void AudioManager::Initialize()
 
     DebugLog::Log(TEXT("Success to create FMOD Studio system"));
 
-    result = _StudioSystem->getCoreSystem(&_CoreSystem);
+    result = _StudioSystem->getCoreSystem(&_CoreSystem); //Get the core system
 
-    if (result != FMOD_OK)
+    if (result != FMOD_OK) //Success?
     {
         DebugLog::LogError(TEXT("Failed to create FMOD Core system"));
         return;
@@ -30,9 +30,9 @@ void AudioManager::Initialize()
 
     DebugLog::Log(TEXT("Success to create FMOD Core system"));
 
-    result = _StudioSystem->initialize(512, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, nullptr);
+    result = _StudioSystem->initialize(512, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, nullptr); //Initialise the systems
 
-    if (result != FMOD_OK)
+    if (result != FMOD_OK) //Success?
     {
         DebugLog::LogError(TEXT("Failed to initialise FMOD Core and Studio"));
         return;
@@ -43,24 +43,24 @@ void AudioManager::Initialize()
 
 void AudioManager::Update()
 {
-    if (!_StudioSystem)
+    if (!_StudioSystem) //Do we have the Studio system?
     {
         return;
     }
 
-    _StudioSystem->update();
+    _StudioSystem->update(); //Update
 }
 
 void AudioManager::Shutdown()
 {
-    if (!_StudioSystem)
+    if (!_StudioSystem) //Does the studio system exist?
     {
         return;
     }
 
-    FMOD_RESULT result = _StudioSystem->release();
+    FMOD_RESULT result = _StudioSystem->release(); //Free it
 
-    if (result != FMOD_OK)
+    if (result != FMOD_OK) //Success?
     {
         DebugLog::LogError(String::Format(TEXT("Failed to release FMOD Studio system -- error number: {0}"), result));
     }
@@ -71,11 +71,11 @@ void AudioManager::Shutdown()
 bool AudioManager::LoadBank(const StringAnsi& bankPath, int flags)
 {
     FMOD::Studio::Bank* bank = nullptr;
-    FMOD_RESULT result = _StudioSystem->loadBankFile(bankPath.GetText(), static_cast<FMOD_STUDIO_LOAD_BANK_FLAGS>(flags), &bank);
+    FMOD_RESULT result = _StudioSystem->loadBankFile(bankPath.GetText(), static_cast<FMOD_STUDIO_LOAD_BANK_FLAGS>(flags), &bank); //load bank file
 
-    if (result == FMOD_OK)
+    if (result == FMOD_OK) //success?
     {
-        _LoadedBanks[bankPath.GetText()] = bank;
+        _LoadedBanks[bankPath.GetText()] = bank; //add it to the loaded banks map
         return true;
     }
 
@@ -85,9 +85,9 @@ bool AudioManager::LoadBank(const StringAnsi& bankPath, int flags)
 
 bool AudioManager::IsBankLoaded(const StringAnsi& bankPath)
 {
-    auto bank = _LoadedBanks.find(bankPath.GetText());
+    auto bank = _LoadedBanks.find(bankPath.GetText()); //Find a bank
 
-    if (bank != _LoadedBanks.end())
+    if (bank != _LoadedBanks.end()) //Not the end of the map
     {
         // Bank found in the map, now check if it's actually loaded
         FMOD::Studio::Bank* fmodBank = bank->second;
@@ -96,54 +96,54 @@ bool AudioManager::IsBankLoaded(const StringAnsi& bankPath)
 
         if (result == FMOD_OK && state == FMOD_STUDIO_LOADING_STATE_LOADED)
         {
-            return true;
+            return true; //Its loaded
         }
     }
 
-    return false;
+    return false; //not loaded
 }
 
 void AudioManager::UnloadBank(const StringAnsi& bankPath)
 {
-    auto bank = _LoadedBanks.find(bankPath.GetText());
+    auto bank = _LoadedBanks.find(bankPath.GetText()); //FInd bank
     if (bank != _LoadedBanks.end())
     {
-        bank->second->unload();
-        _LoadedBanks.erase(bank);
+        bank->second->unload(); //unload
+        _LoadedBanks.erase(bank); //remove from map
     }
 }
 
 void* AudioManager::CreateEventInstance(const StringAnsi& eventPath)
 {
     FMOD::Studio::EventDescription* eventDescription = nullptr;
-    FMOD_RESULT result = _StudioSystem->getEvent(eventPath.GetText(), &eventDescription);
+    FMOD_RESULT result = _StudioSystem->getEvent(eventPath.GetText(), &eventDescription); //Get event
 
-    if (result != FMOD_OK)
+    if (result != FMOD_OK) //Success?
     {
         FMOD_ErrorCheck(result);
         return nullptr;
     }
 
     FMOD::Studio::EventInstance* eventInstance = nullptr;
-    result = eventDescription->createInstance(&eventInstance);
+    result = eventDescription->createInstance(&eventInstance); //Create event
 
-    if (result != FMOD_OK)
+    if (result != FMOD_OK) //Success?
     {
         FMOD_ErrorCheck(result);
         return nullptr;
     }
 
-    return eventInstance;
+    return eventInstance; //Gimme event
 }
 
 void AudioManager::ReleaseEventInstance(void* eventInstance)
 {
-    if (eventInstance)
+    if (eventInstance) //Do we have a pointer?
     {
         return;
     }
 
-    FMOD::Studio::EventInstance* instance = static_cast<FMOD::Studio::EventInstance*>(eventInstance);
+    FMOD::Studio::EventInstance* instance = static_cast<FMOD::Studio::EventInstance*>(eventInstance); //Cast it
 
     // First, stop the event if it's still playing
     FMOD_RESULT result = instance->stop(FMOD_STUDIO_STOP_IMMEDIATE);
@@ -156,48 +156,49 @@ void AudioManager::ReleaseEventInstance(void* eventInstance)
 
 void AudioManager::PlayEvent(void* eventInstance)
 {
-    if (!eventInstance)
+    if (!eventInstance) //Have pointer
     {
         return;
     }
 
-    static_cast<FMOD::Studio::EventInstance*>(eventInstance)->start();
+    static_cast<FMOD::Studio::EventInstance*>(eventInstance)->start(); //Play event
 }
 
 bool AudioManager::IsEventPlaying(void* eventInstance)
 {
+    //Get state of the event
     FMOD_STUDIO_PLAYBACK_STATE state;
     static_cast<FMOD::Studio::EventInstance*>(eventInstance)->getPlaybackState(&state);
 
     if (state == FMOD_STUDIO_PLAYBACK_PLAYING)
     {
-        return true;
+        return true; //its playing
     }
 
-    return false;
+    return false; //Its not playing
 }
 
 void AudioManager::StopEvent(void* eventInstance, int stopMode)
 {
-    if (!eventInstance)
+    if (!eventInstance) //Do we have pointer
     {
         return;
     }
 
-    static_cast<FMOD::Studio::EventInstance*>(eventInstance)->stop(static_cast<FMOD_STUDIO_STOP_MODE>(stopMode));
+    static_cast<FMOD::Studio::EventInstance*>(eventInstance)->stop(static_cast<FMOD_STUDIO_STOP_MODE>(stopMode)); //Stop event
 }
 
 float AudioManager::GetEventMinDistance(void* eventInstance)
 {
     float minDistance;
-    static_cast<FMOD::Studio::EventInstance*>(eventInstance)->getMinMaxDistance(&minDistance, nullptr);
+    static_cast<FMOD::Studio::EventInstance*>(eventInstance)->getMinMaxDistance(&minDistance, nullptr); //Out min distance
     return minDistance;
 }
 
 float AudioManager::GetEventMaxDistance(void* eventInstance)
 {
     float maxDistance;
-    static_cast<FMOD::Studio::EventInstance*>(eventInstance)->getMinMaxDistance(nullptr, &maxDistance);
+    static_cast<FMOD::Studio::EventInstance*>(eventInstance)->getMinMaxDistance(nullptr, &maxDistance); //out max distance
     return maxDistance;
 }
 
